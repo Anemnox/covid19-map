@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -106,19 +106,19 @@
 
         // load data and add as layer
         async function geojsonFetch() {
-            let response = await fetch('assets/stateData.geojson');
-            let stateData = await response.json();
+            let response = await fetch('assets/wa-covid-data-102521.geojson');
+            let waCovidData = await response.json();
 
             map.on('load', function loadingData() {
-                map.addSource('stateData', {
+                map.addSource('waCovidData', {
                     type: 'geojson',
-                    data: stateData
+                    data: waCovidData
                 });
 
                 map.addLayer({
-                    'id': 'stateData-layer',
+                    'id': 'covidData-layer',
                     'type': 'fill',
-                    'source': 'stateData',
+                    'source': 'waCovidData',
                     'paint': {
                         'fill-color': [
                             'step',
@@ -167,7 +167,7 @@
 
                 // create legend
                 const legend = document.getElementById('legend');
-                legend.innerHTML = "<b>Population Density<br>(people/sq.mi.)</b><br><br>";
+                legend.innerHTML = "<b>Death per 10k people<br></b><br><br>";
 
 
                 layers.forEach((layer, i) => {
@@ -179,7 +179,7 @@
 
                     const value = document.createElement('span');
                     value.innerHTML = `${layer}`;
-                    item.appendChild(key) ;
+                    item.appendChild(key);
                     item.appendChild(value);
                     legend.appendChild(item);
                 });
@@ -187,10 +187,10 @@
 
             map.on('mousemove', ({point}) => {
                 const state = map.queryRenderedFeatures(point, {
-                    layers: ['stateData-layer']
+                    layers: ['covidData-layer']
                 });
                 document.getElementById('text-escription').innerHTML = state.length ?
-                    `<h3>${state[0].properties.name}</h3><p><strong><em>${state[0].properties.density}</strong> people per square mile</em></p>` :
+                    `<h3>${state[0].properties.name}</h3><p><strong><em>${state[0].properties.deathPer10k}</strong> people per square mile</em></p>` :
                     `<p>Hover over a state!</p>`;
             });
         }
