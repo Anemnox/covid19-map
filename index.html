@@ -87,7 +87,7 @@
 <body>
     <div id="map"></div>
     <div class='map-overlay' id='features'>
-        <h2>Covid-19 Deaths per 10k People</h2>
+        <h2>Covid-19 Death Rate</h2>
         <div id='text-escription'>
             <p>Hover over a state!</p>
         </div>
@@ -159,7 +159,7 @@
 
                 // create legend
                 const legend = document.getElementById('legend');
-                legend.innerHTML = "<b>Death per 10k people<br></b><br><br>";
+                legend.innerHTML = "<b>Death per 10k Persons<br></b><br><br>";
 
 
                 layers.forEach((layer, i) => {
@@ -182,7 +182,7 @@
                     layers: ['covidData-layer']
                 });
                 document.getElementById('text-escription').innerHTML = state.length ?
-                    `<h3>${state[0].properties.name}</h3><p><strong><em>${state[0].properties.deathPer10k}</strong> people per square mile</em></p>` :
+                    `<h3>${state[0].properties.name}</h3><p><strong><em>${state[0].properties.deathPer10k}</strong> people per 10,000 people</em></p>` :
                     `<p>Hover over a state!</p>`;
             });
         }
